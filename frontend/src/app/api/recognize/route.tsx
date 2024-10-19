@@ -1,60 +1,28 @@
-// app/upload/page.jsx
+import { NextRequest, NextResponse } from 'next/server'
 
-'use client';
+export async function POST(req: NextRequest) {
+  try {
+    const { image } = await req.json()
 
-import { SetStateAction, useState } from 'react';
+    // Forward the image data to the FastAPI backend
+    const fastApiResponse = await fetch('http://127.0.0.1:8000/upload-image/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image }), // Send the image data in JSON format
+    })
 
-export default function UploadImage() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [result, setResult] = useState('');
-  const [error, setError] = useState('');
-
-  // Handle file input change
-  const handleFileChange = (event: { target: { files: SetStateAction<null>[]; }; }) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
-  // Handle form submission
-  const handleSubmit = async (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
-
-    if (!selectedFile) {
-      setError('Please select a file first.');
-      return;
+    if (!fastApiResponse.ok) {
+      throw new Error('Error communicating with FastAPI backend')
     }
 
-    const formData = new FormData();
-    formData.append('file', selectedFile);
+    const data = await fastApiResponse.json()
 
-    try {
-      const response = await fetch('http://127.0.0.1:8000/upload-image/', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to upload image');
-      }
-
-      const data = await response.json();
-      setResult(data.result);
-      setError('');
-    } catch (err) {
-      console.error(err);
-      setError('Failed to process the image.');
-    }
-  };
-
-  return (
-    <div>
-      <h1>Upload an Image</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
-      </form>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {result && <p>Result: {result}</p>}
-    </div>
-  );
+    // Return the result back to the frontend
+    return NextResponse.json({ result: data.result })
+  } catch (error) {
+    console.error('Error in /api/recognize:', error)
+    return NextResponse.json({ error: 'Error processing image' }, { status: 500 })
+  }
 }
