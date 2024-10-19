@@ -51,7 +51,8 @@ export function EcoSnapComponent() {
           <CardDescription className="text-green-700">Snap, Check, Recycle!</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          {/* <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full"> */}
+          <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value)} className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-4">
               <TabsTrigger value="home"><BarChart2 className="w-5 h-5 mr-2" />Dashboard</TabsTrigger>
               <TabsTrigger value="snap"><Camera className="w-5 h-5 mr-2" />Snap</TabsTrigger>
