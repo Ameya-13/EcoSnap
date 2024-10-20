@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import openai
 # Initialize FastAPI
 app = FastAPI()
-openai.api_key = "sk-NWvQ7hhuPPJTIKiqLjASJzVs9K_IeHs4ro96a4gZcQT3BlbkFJ_egnlLTpTOmdIEoiWsS6W506m3iRYjB3lSuGG_Rd8A"
+openai.api_key = "sk-Euju9flxoqHcqAsdrgV0yoBJqo9c7wZFhZXDBgbfOAT3BlbkFJW5i-CsjlkGCPts89YXmOnNU8SWzAwrY_ITgHXXCmYA"
 # Function to send image to GPT-4o (already correct)
 def send_image_to_gpt4o(base64_image):
     try:
@@ -21,7 +21,8 @@ def send_image_to_gpt4o(base64_image):
                          Foucs mainly on being CONCISE AND TO THE POINT. 
                          Don't ask someone to check local guidelines or refer to any other source. 
                          Be the only info endpoint. 
-                         MAIN THING KEEP IT CONCISE."""},
+                         MAIN THING KEEP IT CONCISE AND SIMPLE.
+                         CONCISE."""},
                         {
                             "type": "image_url",
                             "image_url": {

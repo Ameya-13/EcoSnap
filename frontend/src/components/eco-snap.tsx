@@ -196,7 +196,7 @@ export function EcoSnapComponent() {
                   </li>
                   <li className="flex items-center">
                     <Leaf className="w-5 h-5 mr-2 text-green-600" />
-                    <span>Don't bag recyclables</span>
+                    <span>Do not bag recyclables</span>
                   </li>
                   <li className="flex items-center">
                     <Leaf className="w-5 h-5 mr-2 text-green-600" />
