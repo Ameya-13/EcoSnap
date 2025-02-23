@@ -55,7 +55,7 @@ export function EcoSnapComponent() {
       if (!response.ok) {
         throw new Error('Failed to recognize image')
       }
-
+      
       const data = await response.json()
       setRecognitionResult(data.result) // Set recognition result from backend
     } catch (error) {
