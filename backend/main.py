@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import openai
 # Initialize FastAPI
 app = FastAPI()
-openai.api_key = ""
+openai.api_key = "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"
 # Function to send image to GPT-4o (already correct)
 def send_image_to_gpt4o(base64_image):
     try:
